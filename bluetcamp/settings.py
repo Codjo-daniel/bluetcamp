@@ -29,7 +29,7 @@ SECRET_KEY = 'xw2%i37^44q1ym$^w9wbnhn5@_s(1t)abs3t1h7u2112d13e73'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://bluetcamp.azurewebsites.net']
 CSRF_TRUSTED_ORIGINS = ['https://bluetcamp.azurewebsites.net']
 
 
