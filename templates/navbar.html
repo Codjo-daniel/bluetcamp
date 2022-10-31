@@ -1,0 +1,48 @@
+{% load static %}
+
+
+<nav class="w-full flex justify-between items-center py-3 px-4 fixed z-50">
+    <div class="w-6/12">
+        <a href="/">
+            <img class="w-4/12" src="{% static 'images/logo.png' %}">
+        </a>
+    </div>
+
+    <div class="w-6/12 flex flex-nowrap justify-end">
+        {% if user.is_authenticated %}
+            <div class="mr-2">
+                <form method="get" action="{% url 'bootcamp:pesquisabootcamp' %}">
+                    <input type="text" class="py-1 px-2 rounded-md text-black" name="query" value="{{ request.GET.query }}" placeholder="Pesquisar...">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        {% endif %}
+
+            <div class="mr-2">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'bootcamp:logout' %}">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md">
+                            Sair
+                        </button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'bootcamp:login' %}">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md">
+                            Login
+                        </button>
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="mr-2">
+                <a href="{% url 'bootcamp:editar_perfil' user.pk %}">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md">
+                        Editar Perfil
+                    </button>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+</nav>
