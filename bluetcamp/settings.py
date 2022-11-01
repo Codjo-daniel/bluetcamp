@@ -151,14 +151,14 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 #     BASE_DIR / "static",
 # ]
 
-# MEDIA_URL = '/media/'
-#
-# MEDIA_ROOT = BASE_DIR / "media"
-#
-# LOGIN_REDIRECT_URL = 'bootcamp:home_bootcamps'
-#
-# LOGIN_URL = 'bootcamp:login'
-#
-# CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-#
-# CRISPY_TEMPLATE_PACK = 'bootstrap5'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+LOGIN_REDIRECT_URL = 'bootcamp:home_bootcamps'
+
+LOGIN_URL = 'bootcamp:login'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
