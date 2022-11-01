@@ -29,8 +29,8 @@ SECRET_KEY = 'xw2%i37^44q1ym$^w9wbnhn5@_s(1t)abs3t1h7u2112d13e73'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://bluetcamp.azurewebsites.net']
+ALLOWED_HOSTS = ['https://bluetcamp.azurewebsites.net']
+# CSRF_TRUSTED_ORIGINS = ['https://bluetcamp.azurewebsites.net']
 
 # Application definition
 
@@ -48,13 +48,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'bluetcamp.urls'
@@ -144,23 +144,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
 
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = BASE_DIR / "media"
-
-LOGIN_REDIRECT_URL = 'bootcamp:home_bootcamps'
-
-LOGIN_URL = 'bootcamp:login'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+# MEDIA_URL = '/media/'
+#
+# MEDIA_ROOT = BASE_DIR / "media"
+#
+# LOGIN_REDIRECT_URL = 'bootcamp:home_bootcamps'
+#
+# LOGIN_URL = 'bootcamp:login'
+#
+# CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+#
+# CRISPY_TEMPLATE_PACK = 'bootstrap5'
