@@ -12,9 +12,31 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from pathlib import Path
+#import sys
+#sys.path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+def get_secret_kv(vault_url: str,secret_name: str, mode = "default"):
+    from azure.identity import AzureCliCredential
+    from azure.keyvault.secrets import SecretClient
+    from azure.identity import DefaultAzureCredential
+    from azure.identity import ManagedIdentityCredential
+    try:
+        if mode == "cli": # use az login na sua interface preferida, esse modo é pensado apenas para desenvolvimento local
+            identity = AzureCliCredential()
+        elif mode == "default": # default ou managed usam as policies do keyvault para autenticar o aplicativo do functions,
+            identity = DefaultAzureCredential() # usar essa ou a managed quando estiver dando deploy para produção
+        elif mode == "managed":
+            identity = ManagedIdentityCredential()
+        secretClient = SecretClient(vault_url = vault_url, credential=identity)
+        secret = secretClient.get_secret(secret_name)
+        return secret.value
+    except:
+        raise Exception("Unable to return secret")
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,30 +105,33 @@ WSGI_APPLICATION = 'bluetcamp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# SQlite3
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#SQlite3
+#DATABASES = {
+#    'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#   }
+#}
 
 # SQL Server
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "mssql",
-#         "NAME": "dbBluetCamp",
-#         "HOST": "DESKTOP-KQFE705\SQLEXPRESS",
-#         "PORT":"",
-#         "USER":"user_bc",
-#         "PASSWORD":"#bc@2022",
-#
-#         "OPTIONS":{
-#             'driver': 'ODBC Driver 17 for SQL Server',
-#         }
-#     }
-# }
-#
+SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="cli")
+UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='cli')
+#SQL Server
+DATABASES = {
+     "default": {
+        "ENGINE": "mssql",
+         "NAME": "db-BlueCamp",
+         "HOST": "svr-bluecamp.database.windows.net",
+         "PORT":"1433",
+         "USER":UsuarioBanco,
+         "PASSWORD":SenhaDoBanco,
+
+         "OPTIONS":{
+             'driver': 'ODBC Driver 17 for SQL Server',
+         }
+     }
+ }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
