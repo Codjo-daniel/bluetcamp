@@ -23,7 +23,7 @@ def get_secret_kv(vault_url: str,secret_name: str, mode = "default"):
     from azure.identity import AzureCliCredential
     from azure.keyvault.secrets import SecretClient
     from azure.identity import DefaultAzureCredential
-    from azure.identity import ManagedIdentityCredential
+    from azure.identity import ManagedIdentityCredential 
     try:
         if mode == "cli": # use az login na sua interface preferida, esse modo é pensado apenas para desenvolvimento local
             identity = AzureCliCredential()
