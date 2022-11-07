@@ -114,8 +114,8 @@ WSGI_APPLICATION = 'bluetcamp.wsgi.application'
 #}
 
 # SQL Server
-SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="cli")
-UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='cli')
+SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="default")
+UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='default')
 #SQL Server
 DATABASES = {
      "default": {
