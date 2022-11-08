@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+   {{ object.titulo }}
+{% endblock %}
+
+{% block content %}
+<body>
+<i class="fa-solid fa-camera-movie"></i>
+<div>
+    <br><br><br><br>
+  <center>
+      <iframe allowfullscreen="True" frameborder="0" height="720" src="{{ object.caminho }}" width="1280"></iframe>
+      <p>Atividade: {{ object.titulo }}</p>
+  </center>
+</div>
+</body>
+{% endblock %}

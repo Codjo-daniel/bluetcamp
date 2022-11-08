@@ -38,27 +38,51 @@
                 <br>
                 <p class="text-gray-100 text-lg">
                     {{ object.descricao }}
-                    <br>
-                    Visualizações: {{ object.visualizacoes }}
+                    <br> Visualizações: {{ object.visualizacoes }}
                 </p>
             </div>
 
             <div style='margin-top:2rem;margin-bottom:2rem;'>
                 <h2 class="text-gray-200 text-3xl font-medium">
-                    Episódios
-
+                    Módulos
                 </h2>
                     <h3 class='text-lg'>
-                        {% for conteudo in object.conteudos.all%}
-                            <a href="{{ conteudo.caminho }}">
-                                <p>Episódio {{ forloop.counter }}: {{ conteudo.titulo }}</p>
+                        <br>
+                        {% if pode_ver_bootcamp == False %}
+                        <!--Caso o Usuário NÃO esteja matriculado no Bootcamp, emite alerta e da opção de link de inscrição-->
+                            <p style="color:#ff4c4c; text-align: center">Você não está inscrito neste Bootcamp</p>
+                            <p style="color:#ff4c4c; text-align: center">Infelizmente, você não tem acesso ao conteúdo</p>
+                            <p style="color:#ff4c4c; text-align: center">Caso deseje se inscrever, clique no link abaixo</p>
+                            <a href= "{{ object.link_interesse }}">
+                                <p style="text-align: center">Inscreva-se no Bootcamp</p>
                             </a>
+                        {% endif %}
+
+                        {% for boot_modulo in modulos_ordenados%}
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Módulo {{ forloop.counter }}: {{ boot_modulo.modulo.mod_descricao }}</p>
+                            {% for cont_mod in boot_modulo.modulo.modulos_conteudo.all|dictsort:"ordem" %}
+                                <!--Caso o Usuário NÃO esteja matriculado no Bootcamp, permite acesso aos conteúdos-->
+                                <!--Do contrário, apenas visualiza os conteúdos, mas não acessa-->
+                                 {% if cont_mod.conteudo.tipo == "PROVA" %}
+                                    {% if pode_ver_bootcamp%}
+                                        <a href="{{ cont_mod.conteudo.caminho }}" target="_blank"><p style="padding-left: 70px">{{ cont_mod.conteudo.titulo }}</p></a>
+                                    {% else %}
+                                        <p style="padding-left: 70px">{{ cont_mod.conteudo.titulo }}</p>
+                                    {% endif %}
+                                 {% else %}
+                                    {% if pode_ver_bootcamp%}
+                                        <a href="{% url 'bootcamp:detalhe_conteudo' cont_mod.conteudo.pk %}" target="_blank"><p style="padding-left: 70px">{{ cont_mod.conteudo.titulo }}</p></a>
+                                    {% else %}
+                                        <p style="padding-left: 70px">{{ cont_mod.conteudo.titulo }}</p>
+                                    {% endif %}
+                                 {% endif %}
+                            {% endfor %}
+                            <br>
                         {% endfor %}
                     </h3>
-
             </div>
-
         </div>
+
     </section>
 
     <section class='bg-primary_black flex justify-center py-10'>

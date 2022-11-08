@@ -16,3 +16,4 @@ def retorna_bootcamp_destaque(request):
     else:
         boot_destaque = None
     return {"boot_destaque": boot_destaque}
+
