@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from pathlib import Path
-#import sys
-#sys.path
+import sys
+sys.path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -114,8 +114,8 @@ WSGI_APPLICATION = 'bluetcamp.wsgi.application'
 #}
 
 # SQL Server
-SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="cli")
-UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='cli')
+SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="managed")
+UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='managed')
 #SQL Server
 DATABASES = {
      "default": {
