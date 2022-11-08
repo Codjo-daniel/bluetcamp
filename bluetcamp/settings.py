@@ -19,23 +19,23 @@ sys.path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-def get_secret_kv(vault_url: str,secret_name: str, mode = "default"):
-    from azure.identity import AzureCliCredential
-    from azure.keyvault.secrets import SecretClient
-    from azure.identity import DefaultAzureCredential
-    from azure.identity import ManagedIdentityCredential 
-    try:
-        if mode == "cli": # use az login na sua interface preferida, esse modo é pensado apenas para desenvolvimento local
-            identity = AzureCliCredential()
-        elif mode == "default": # default ou managed usam as policies do keyvault para autenticar o aplicativo do functions,
-            identity = DefaultAzureCredential() # usar essa ou a managed quando estiver dando deploy para produção
-        elif mode == "managed":
-            identity = ManagedIdentityCredential()
-        secretClient = SecretClient(vault_url = vault_url, credential=identity)
-        secret = secretClient.get_secret(secret_name)
-        return secret.value
-    except:
-        raise Exception("Unable to return secret")
+#def get_secret_kv(vault_url: str,secret_name: str, mode = "default"):
+#   from azure.identity import AzureCliCredential
+#   from azure.keyvault.secrets import SecretClient
+#   from azure.identity import DefaultAzureCredential
+#   from azure.identity import ManagedIdentityCredential 
+#    try:
+#        if mode == "cli": # use az login na sua interface preferida, esse modo é pensado apenas para desenvolvimento local
+#            identity = AzureCliCredential()
+#        elif mode == "default": # default ou managed usam as policies do keyvault para autenticar o aplicativo do functions,
+#            identity = DefaultAzureCredential() # usar essa ou a managed quando estiver dando deploy para produção
+#        elif mode == "managed":
+#            identity = ManagedIdentityCredential()
+#        secretClient = SecretClient(vault_url = vault_url, credential=identity)
+#        secret = secretClient.get_secret(secret_name)
+#        return secret.value
+#    except:
+#        raise Exception("Unable to return secret")
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -114,8 +114,8 @@ WSGI_APPLICATION = 'bluetcamp.wsgi.application'
 #}
 
 # SQL Server
-SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="managed")
-UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='managed')
+#SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="managed")
+#UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='managed')
 #SQL Server
 DATABASES = {
      "default": {
@@ -123,8 +123,8 @@ DATABASES = {
          "NAME": "db-BlueCamp",
          "HOST": "svr-bluecamp.database.windows.net",
          "PORT":"1433",
-         "USER":UsuarioBanco,
-         "PASSWORD":SenhaDoBanco,
+         "USER":"bluecamp",
+         "PASSWORD":"7x^5W5G$CJDz",
 
          "OPTIONS":{
              'driver': 'ODBC Driver 17 for SQL Server',
