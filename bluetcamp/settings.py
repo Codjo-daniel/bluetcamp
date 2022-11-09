@@ -52,7 +52,7 @@ SECRET_KEY = 'xw2%i37^44q1ym$^w9wbnhn5@_s(1t)abs3t1h7u2112d13e73'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://bluetcamp.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://bluetcamp.azurewebsites.net','https://bluecamp.azurewebsites.net/']
 
 # Application definition
 
