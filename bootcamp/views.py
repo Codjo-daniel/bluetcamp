@@ -5,7 +5,10 @@ from .forms import CriarContaForm, HomePageForm, ContatoForm
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 from .models import Bootcamp, Usuario, Modulo_Bootcamp, Conteudo, Conteudo_usu_acomp, Matricula
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import template
 
+
+register = template.Library()
 
 
 class Homepage(FormView):
@@ -73,6 +76,15 @@ class Detalhesbootcamp(LoginRequiredMixin, DetailView):
         context['modulos_ordenados'] = modulos_ordenados
         return context
 
+    # @register.filter
+    # def conteudo_ja_visto(Conteudo_usu_acomp, conteudo_id):
+    #     cont_cons = Conteudo_usu_acomp.objects.filter(conteudo = conteudo_id)
+    #     if cont_cons:
+    #         result = True
+    #     else:
+    #         result = False
+    #     return result
+
 class DetalheConteudo(LoginRequiredMixin, DetailView):
     template_name = "detalhe_conteudo.html"
     model = Conteudo
@@ -85,6 +97,7 @@ class DetalheConteudo(LoginRequiredMixin, DetailView):
         usuario = request.user
         #print(usuario.username)
         usuario.conteudos_vistos.add(conteudo)
+        #usuario.modulos_vistos.add(modulo)
         return super().get(request, *args, **kwargs) #redireciona o user para a url final
 
 class PesquisaBootcamp(LoginRequiredMixin, ListView):
