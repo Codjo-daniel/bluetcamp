@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'BlueCamp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21ECD6E23EF248EFB15B6690862E5D9F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E347626D80984B04813D8B0DF0002DD7 }}
