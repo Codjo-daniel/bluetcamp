@@ -49,7 +49,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'xw2%i37^44q1ym$^w9wbnhn5@_s(1t)abs3t1h7u2112d13e73'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://bluecamp.azurewebsites.net/','https://bluetcamp.azurewebsites.net']
@@ -106,31 +106,31 @@ WSGI_APPLICATION = 'bluetcamp.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 #SQlite3
-#DATABASES = {
-#    'default': {
-#       'ENGINE': 'django.db.backends.sqlite3',
-#       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#   }
-#}
+DATABASES = {
+    'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+  }
+}
 
 # SQL Server
 #SenhaDoBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="senha-banco",mode="managed")
 #UsuarioBanco=get_secret_kv(vault_url="https://kv-bluecamp.vault.azure.net/",secret_name="BdLoginBluetCamp",mode='managed')
 #SQL Server
-DATABASES = {
-     "default": {
-        "ENGINE": "mssql",
-         "NAME": "db-BlueCamp",
-         "HOST": "svr-bluecamp.database.windows.net",
-         "PORT":"1433",
-         "USER":"bluecamp",
-         "PASSWORD":"7x^5W5G$CJDz",
-
-         "OPTIONS":{
-             'driver': 'ODBC Driver 17 for SQL Server',
-         }
-     }
- }
+#DATABASES = {
+#    "default": {
+#       "ENGINE": "mssql",
+#         "NAME": "db-BlueCamp",
+#         "HOST": "svr-bluecamp.database.windows.net",
+#         "PORT":"1433",
+#        "USER":"bluecamp",
+#         "PASSWORD":"7x^5W5G$CJDz",
+#
+#        "OPTIONS":{
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         }
+#     }
+# }
 
 
 # Password validation
