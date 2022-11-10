@@ -49,7 +49,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'xw2%i37^44q1ym$^w9wbnhn5@_s(1t)abs3t1h7u2112d13e73'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://bluecamp.azurewebsites.net/','https://bluetcamp.azurewebsites.net']
@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'bootcamp',
     'crispy_forms',
     'crispy_bootstrap5',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -176,9 +177,22 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_URL = '/media/'
+# settings media
 
-MEDIA_ROOT = BASE_DIR / "media"
+DEFAULT_FILE_STORAGE = 'bluetcamp.custom_azure.AzureMediaStorage'
+
+
+
+MEDIA_LOCATION = "media"
+AZURE_ACCOUNT_NAME = "datalakecodjo"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+MEDIA_ROOT = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
+#777777777
+#MEDIA_URL = '/media/'
+
+#MEDIA_ROOT = BASE_DIR / "media"
 
 LOGIN_REDIRECT_URL = 'bootcamp:home_bootcamps'
 
